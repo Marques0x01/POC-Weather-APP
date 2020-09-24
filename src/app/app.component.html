@@ -1,0 +1,313 @@
+<div class="bg-linear-primary py-5">
+  <div class="text-center mb-4 text-light">
+    <h3>Confira a qualidade do ar da sua cidade</h3>
+    <h4>Veja a previsão do tempo para os proximos dias</h4>
+  </div>
+  <div class="container">
+    <div class="rounded shadow bg-light">
+      <div
+        class="row d-flex justify-content-center align-items-center py-3 px-4"
+      >
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label for="state" class="f-17">Estado</label>
+            <select
+              class="form-control"
+              id="state"
+              [(ngModel)]="stateSelected"
+              (change)="getCities()"
+            >
+              <option value="" disabled></option>
+              <option
+                *ngFor="let state of states; index as i"
+                [ngValue]="state"
+              >
+                {{ state.nome }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="form-group">
+            <label for="city" class="f-17">Cidade</label>
+            <select
+              class="form-control"
+              id="city"
+              [(ngModel)]="citySelected"
+              [disabled]="stateSelected == ''"
+            >
+              <option value="" disabled></option>
+              <option *ngFor="let city of cities; index as i" [ngValue]="city">
+                {{ city.nome }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <button
+            class="btn btn-primary btn-lg"
+            (click)="searchQuality(citySelected.nome)"
+          >
+            Procurar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div style="margin-top: 50px">
+    <div class="row teste1" *ngIf="iaqi">
+      <div class="col-sm-12 col-md-7">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 style="text-align: center">Indice de qualidade do ar</h3>
+          </div>
+        </div>
+        <div class="row teste2">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <div
+                      class="score d-block py-5 border-radius-10 d-flex justify-content-center"
+                      [ngClass]="
+                        iaqi.quality.class ? 'bg-' + iaqi.quality.class : ''
+                      "
+                    >
+                      <span class="font-weight-bold f-60 text-light">{{
+                        iaqi.quality.score
+                      }}</span>
+                    </div>
+                    <div></div>
+                  </div>
+                  <div class="col-sm-9 f-18">
+                    <div class="mb-2">
+                      <span
+                        class="font-weight-bold f-40 space-word"
+                        [ngClass]="
+                          iaqi.quality.class ? 'text-' + iaqi.quality.class : ''
+                        "
+                        >{{ iaqi.quality.status }}</span
+                      >
+                    </div>
+                    <div class="f-15 mb-1 text-dark">
+                      <span>Ultima Atualização: </span>
+                      <span>{{ iaqi.time.s }}</span>
+                    </div>
+                    <div class="f-15 text-dark">
+                      <span>Localidade Proxima: </span>
+                      <span>{{ iaqi.city.name }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-sm-12 text-dark">
+                    <div>
+                      <span>Níveis de preocupação de saúde:</span>
+                    </div>
+                    <div>
+                      <span class="f-17">{{ iaqi.quality.description }}</span>
+                    </div>
+                  </div>
+                </div>
+                <mat-expansion-panel
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                  class="mt-4"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title> Demais Informações</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div
+                    class="row mt-4"
+                    *ngFor="let item of scoreTypes; index as i"
+                  >
+                    <span class="badge badge-primary f-20"
+                      >{{ item.value
+                      }}<span class="f-12">{{ item.name }}</span></span
+                    >
+                    <span class="f-15 ml-2">{{ item.description }}</span>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-5">
+        <div class="row">
+          <div class="col-sm-12">
+            <h3 style="text-align: center">Previsão do tempo</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-12 col-md-4">
+                    <div
+                      class="score d-block py-5 border-radius-10 d-flex justify-content-center bg-primary"
+                    >
+                      <span class="font-weight-bold f-50 text-light"
+                        >{{ weather.temp }}°</span
+                      >
+                    </div>
+                    <div></div>
+                  </div>
+                  <div class="col-sm-12 col-md-8 f-18">
+                    <div class="mb-2">
+                      <span
+                        class="font-weight-bold f-30 space-word text-primary"
+                        >{{ weather.description }}</span
+                      >
+                    </div>
+                    <div class="f-15 mb-1 text-dark">
+                      <span>Local: </span>
+                      <span>{{ weather.city }}</span>
+                    </div>
+                    <div class="f-15 mb-1 text-dark">
+                      <span>Atualização: </span>
+                      <span>{{ weather.date }} - {{ weather.time }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-sm-6 text-center">
+                    <span class="f-15"
+                      >Nascer do Sol: {{ weather.sunrise }}</span
+                    >
+                    <img
+                      src="../assets/images/sunrise.png"
+                      width="100"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="col-sm-6 text-center">
+                    <span class="f-15">Por do Sol: {{ weather.sunset }}</span>
+                    <img
+                      src="../assets/images/sunset.png"
+                      width="100"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+                <mat-expansion-panel
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                  class="mt-4"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title> Demais Previsões</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div
+                    class="row justify-content-around"
+                    *ngIf="weather.forecast"
+                  >
+                    <div
+                      class="col-sm-12 col-md-5 border border-light-grey p-3"
+                      *ngFor="let forecast of weather.forecast; index as i"
+                      [ngClass]="{ 'mt-2': i > 1 }"
+                    >
+                      <div class="text-center">
+                        <span class="f-17 text-dark"
+                          >{{ forecast.date }} - {{ forecast.weekday }}</span
+                        >
+                      </div>
+                      <div class="d-flex justify-content-between mt-2">
+                        <span
+                          class="badge badge-primary f-17 font-weight-normal"
+                          >min {{ forecast.min }}</span
+                        >
+                        <span
+                          class="badge badge-primary f-17 font-weight-normal"
+                          >max {{ forecast.max }}</span
+                        >
+                      </div>
+                      <div class="mt-2 text-center">
+                        <span class="f-17 text-dark">{{
+                          forecast.description
+                        }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row my-5">
+      <div class="col-sm-12 justify-content-around">
+        <div class="row">
+          <div class="col-sm-12 p-3 border border-dark bg-success text-white">
+            <span class="f-17"
+              >0 - 50 | Boa - A qualidade do ar é considerada satisfatória, a
+              poluição do ar representa pouco ou nenhum risco</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 p-3 border border-dark bg-moderate text-dark">
+            <span class="f-17"
+              >51 - 100 | Moderado - A qualidade do ar é aceitável; No entanto,
+              para alguns poluentes pode haver um problema de saúde moderada
+              para um número muito pequeno de pessoas que são mais sensíveis à
+              poluição do ar.</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 p-3 border border-dark bg-warning text-dark">
+            <span class="f-17"
+              >101 - 150 | Não Saudável para Grupos Sensíveis - Membros de
+              grupos sensíveis podem ter efeitos na a saúde. O público em geral
+              não é susceptível de ser afetado.</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 p-3 border border-dark bg-danger text-white">
+            <span class="f-17"
+              >151 - 200 | Insalubre - Toda a população pode começar a sentir os
+              efeitos na saúde; membros de grupos sensíveis podem apresentar
+              efeitos mais sérios de saúde.</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 p-3 border border-dark bg-purple text-white">
+            <span class="f-17"
+              >201 - 300 | Muito Insalubre - As advertências de saúde de
+              situações de emergência. Toda a população é mais susceptível de
+              ser afectada.</span
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 p-3 border border-dark bg-risk text-white">
+            <span class="f-17"
+              >300+ | Perigoso - alerta de saúde: todos podem experimentar
+              efeitos mais graves para a saúde</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 mt-4">
+          <div class="f-20">
+            <span>Créditos:</span>
+          </div>
+          <div class="f-20 mt-2">
+            <span>API Qualidade do Ar: <a href="https://aqicn.org/json-api/doc/">AQICN</a></span>
+          </div>
+          <div class="f-20 mt-2">
+            <span>API Previsões do Tempo: <a href="https://console.hgbrasil.com/documentation/weather">HGBRASIL</a></span>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

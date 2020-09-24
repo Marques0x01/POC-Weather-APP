@@ -1,0 +1,183 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+// VARIABLES
+$primary: rgb(77, 77, 233);
+$secondary: #838181;
+$dark: #202124;
+$light: #ffffff;
+$warning: #fc6c40;
+$moderate: #ffde33;
+
+// CUSTOM
+// GREY
+$light-grey: #dfdfdf;
+$light-grey-100: #e7e7e7;
+$light-grey-200: #d5d5d5;
+$grey: #8b8b8b;
+$dark-grey: #808080;
+
+// PURPLE / BLUE
+$light-blue: rgba(183, 183, 221, 0.822);
+$light-purple: #55697e;
+$dark-purple: #20123a;
+$purple: #660099;
+$risk: #7e0023;
+
+// BOOTSTRAP
+$theme-colors: (
+  "primary": $primary,
+  "light": $light,
+  "dark": $dark,
+  "secondary": $secondary,
+  "warning": $warning,
+  "light-grey": $light-grey,
+  "dark-purple": $dark-purple,
+  "light-purple": $light-purple,
+  "grey": $grey,
+  "light-grey-100": $light-grey-100,
+  "light-grey-200": $light-grey-200,
+  "dark-grey": $dark-grey,
+  "moderate": $moderate,
+  "purple": $purple,
+  "risk": $risk
+);
+
+// BACKGROUNDS HOVERS
+.bg-hover-primary:hover {
+  background-color: rgb(153, 153, 255);
+}
+.bg-hover-secondary:hover {
+  background-color: #acacac;
+}
+.bg-hover-dark:hover {
+  background-color: #535353;
+}
+.bg-hover-light:hover {
+  background-color: #ebebeb;
+}
+.bg-linear-primary {
+  background: -webkit-linear-gradient(left, #3931af, #00c6ff) !important;
+}
+
+.box-shadow-light-grey-100 {
+  -webkit-box-shadow: 0px 0px 11px 0px rgba(231, 231, 231, 1);
+  -moz-box-shadow: 0px 0px 11px 0px rgba(231, 231, 231, 1);
+  box-shadow: 0px 0px 11px 0px rgba(231, 231, 231, 1);
+}
+
+// MARGIN
+.mx-6 {
+  margin: 0 5rem;
+}
+.mx-7 {
+  margin: 0 7rem;
+}
+.mx-8 {
+  margin: 0 9rem;
+}
+.mx-9 {
+  margin: 0 10rem;
+}
+.mx-10 {
+  margin: 0 15rem;
+}
+
+// PADDING
+.px-6 {
+  padding: 0 5rem;
+}
+.px-7 {
+  padding: 0 7rem;
+}
+.px-8 {
+  padding: 0 9rem;
+}
+.px-9 {
+  padding: 0 10rem;
+}
+.px-10 {
+  padding: 0 15rem;
+}
+
+// TRANSITIONS
+.transition-02 {
+  transition: 0.2s;
+}
+
+.transition-03 {
+  transition: 0.3s;
+}
+
+.transition-04 {
+  transition: 0.4s;
+}
+
+.transition-05 {
+  transition: 0.5s;
+}
+
+// FONT SIZE
+.f-10 {
+  font-size: 10px;
+}
+.f-11 {
+  font-size: 11px;
+}
+.f-12 {
+  font-size: 12px;
+}
+.f-13 {
+  font-size: 13px;
+}
+.f-15 {
+  font-size: 15px;
+}
+.f-17 {
+  font-size: 17px;
+}
+.f-18 {
+  font-size: 18px;
+}
+.f-20 {
+  font-size: 20px;
+}
+.f-25 {
+  font-size: 25px;
+}
+.f-30 {
+  font-size: 30px;
+}
+.f-35 {
+  font-size: 35px;
+}
+.f-40 {
+  font-size: 40px;
+}
+.f-50 {
+  font-size: 50px;
+}
+.f-60 {
+  font-size: 60px;
+}
+.f-70 {
+  font-size: 70px;
+}
+
+// BORDER
+.border-radius-30 {
+  border-radius: 30px !important;
+}
+.border-radius-20 {
+  border-radius: 20px !important;
+}
+.border-radius-15 {
+  border-radius: 15px !important;
+}
+.border-radius-10 {
+  border-radius: 10px !important;
+}
+.border-radius-5 {
+    border-radius: 5px !important;
+}
